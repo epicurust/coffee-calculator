@@ -8,20 +8,16 @@
 </head>
 <body>
 
-  <!-- Greeting -->
   <h1 id="greeting">Welcome to the Coffee Calculator</h1>
 
-  <!-- Time-of-day image -->
   <div id="imageContainer">
     <img id="introImage" class="time-image" src="" alt="Time of Day Coffee Image">
   </div>
 
-  <!-- User name input -->
   <input type="text" id="nameInput" placeholder="What's your name?" />
   <button id="startButton">Start</button>
   <button id="darkModeToggle">🌓 Toggle Dark Mode</button>
 
-  <!-- Brew method selection -->
   <div id="iconSection" class="section hidden">
     <p>Select a brew method to get started:</p>
     <div class="icon-container">
@@ -30,10 +26,8 @@
     </div>
   </div>
 
-  <!-- Back button -->
   <button id="backButton" class="hidden">← Back</button>
 
-  <!-- Filter Calculator -->
   <div id="filter" class="section hidden">
     <h3>Filter Coffee Calculator</h3>
     <label for="filterCoffee">Coffee Weight (g):</label>
@@ -57,7 +51,6 @@
     <div class="result" id="filterResult"></div>
   </div>
 
-  <!-- Espresso Calculator -->
   <div id="espresso" class="section hidden">
     <h3>Espresso Calculator</h3>
     <label for="espressoDose">Coffee Dose (g):</label>
@@ -73,9 +66,15 @@
 
     <button onclick="calculateEspresso()">Calculate Espresso</button>
     <div class="result" id="espressoResult"></div>
+
+    <div class="espresso-promo">
+      <a href="https://www.sageappliances.com/en-gb/shop/espresso" target="_blank">
+        <img src="img/sage-espresso.png" alt="Upgrade your espresso game" />
+        <p>Need to upgrade your espresso game?</p>
+      </a>
+    </div>
   </div>
 
-  <!-- JavaScript -->
   <script src="js/script.js"></script>
 </body>
 </html>
