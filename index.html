@@ -5,31 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coffee Brew Ratio Calculator</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="img/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 </head>
 <body>
 
+  <!-- Greeting -->
   <h1 id="greeting">Welcome to the Coffee Calculator</h1>
 
+  <!-- Intro image -->
   <div id="imageContainer">
     <img id="introImage" class="time-image" src="" alt="Time of Day Coffee Image">
   </div>
 
+  <!-- Name input -->
   <input type="text" id="nameInput" placeholder="What's your name?" />
   <button id="startButton">Start</button>
   <button id="darkModeToggle">🌓 Toggle Dark Mode</button>
+  <button id="languageToggle">🌐 DE / EN</button>
 
+  <!-- Brew method icons -->
   <div id="iconSection" class="section hidden">
-    <p>Select a brew method to get started:</p>
+    <p data-i18n="choose_brew">Select a brew method to get started:</p>
     <div class="icon-container">
       <img id="filterIcon" src="img/filter-icon.png" alt="Filter">
       <img id="espressoIcon" src="img/espresso-icon.jpg" alt="Espresso">
     </div>
   </div>
 
+  <!-- Back & Reset -->
   <button id="backButton" class="hidden">← Back</button>
+  <button id="resetButton" class="hidden">🔁 Reset</button>
 
+  <!-- Filter Calculator -->
   <div id="filter" class="section hidden">
     <h3>Filter Coffee Calculator</h3>
+
+    <label><input type="checkbox" id="useCustomRatio"> Use custom ratio</label>
+    <input type="number" id="customRatio" class="hidden" placeholder="Enter custom ratio (e.g. 63)">
+
+    <label for="flavourProfile">Flavour Profile:</label>
+    <select id="flavourProfile">
+      <option value="light">Light & Tea-like</option>
+      <option value="balanced" selected>Balanced (Gold Cup)</option>
+      <option value="syrupy">Sweet & Syrupy</option>
+      <option value="bold">Bold & Heavy</option>
+    </select>
+
     <label for="filterCoffee">Coffee Weight (g):</label>
     <input type="number" id="filterCoffee" placeholder="Enter coffee amount">
 
@@ -39,18 +62,23 @@
     <label for="filterPeople">Or number of people (250g per person):</label>
     <input type="number" id="filterPeople" placeholder="Enter number of people">
 
-    <label for="filterRatio">Brew Strength (g/L):</label>
-    <select id="filterRatio">
-      <option value="55">55 - Light</option>
-      <option value="60" selected>60 - Gold Cup</option>
-      <option value="65">65 - Syrupy</option>
-      <option value="70">70 - Bold</option>
-    </select>
-
     <button onclick="calculateFilter()">Calculate Filter</button>
     <div class="result" id="filterResult"></div>
+
+    <!-- Vintage Timer -->
+    <div class="timer-section">
+      <h4>Brew Timer</h4>
+      <div id="timerDisplay">00:00</div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="pauseTimer()">Pause</button>
+      <button onclick="resetTimer()">Reset</button>
+      <audio id="bellSound" src="img/bell.mp3" preload="auto"></audio>
+    </div>
+
+    <div id="filterHistory" class="history"></div>
   </div>
 
+  <!-- Espresso Calculator -->
   <div id="espresso" class="section hidden">
     <h3>Espresso Calculator</h3>
     <label for="espressoDose">Coffee Dose (g):</label>
@@ -75,6 +103,7 @@
     </div>
   </div>
 
+  <!-- JavaScript -->
   <script src="js/script.js"></script>
 </body>
 </html>
