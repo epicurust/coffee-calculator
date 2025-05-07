@@ -32,8 +32,126 @@
   <button id="backButton" class="hidden">← Back</button>
   <button id="resetButton" class="hidden">🔁 Reset</button>
 
-  <!-- Filter and Espresso Sections remain the same -->
-  <!-- Keep your existing calculator sections here -->
+  <!-- Filter Calculator -->
+  <div id="filter" class="section hidden">
+    <h3>Filter Coffee Calculator</h3>
+
+    <label for="coffeeType">Coffee Type:</label>
+    <select id="coffeeType">
+      <option value="single">Single Origin</option>
+      <option value="blend">Blend</option>
+    </select>
+
+    <label for="roastLevel">Roast Level:</label>
+    <select id="roastLevel">
+      <option value="light">Light Roast</option>
+      <option value="dark">Dark Roast</option>
+    </select>
+    <div id="roastAdvice" class="feedback-line"></div>
+
+    <label><input type="checkbox" id="useCustomRatio"> Use custom ratio</label>
+    <input type="number" id="customRatio" class="hidden" placeholder="Enter custom ratio (e.g. 63)">
+
+    <label for="flavourProfile">Flavour Profile:</label>
+    <select id="flavourProfile">
+      <option value="light">Light & Tea-like</option>
+      <option value="balanced" selected>Balanced (Gold Cup)</option>
+      <option value="syrupy">Sweet & Syrupy</option>
+      <option value="bold">Bold & Heavy</option>
+    </select>
+
+    <label for="filterCoffee">Coffee Weight (g):</label>
+    <input type="number" id="filterCoffee" placeholder="Enter coffee amount">
+    <label for="filterWater">Or target water amount (g):</label>
+    <input type="number" id="filterWater" placeholder="Enter water amount">
+    <label for="filterPeople">Or number of people (250g per person):</label>
+    <input type="number" id="filterPeople" placeholder="Enter number of people">
+
+    <label for="waterTemp">Water Temperature (°C):</label>
+    <input type="number" id="waterTemp" placeholder="e.g. 93" />
+    <div id="tempFeedback" class="feedback-line"></div>
+
+    <p class="brew-time-tip">
+      ⏱️ Recommended brew time: <strong>2:30–3:30 minutes</strong><br>
+      If your brew is too quick, grind finer. Too slow? Try coarser.
+    </p>
+
+    <button onclick="calculateFilter()">Calculate Filter</button>
+    <div class="result" id="filterResult"></div>
+
+    <!-- Vintage Timer -->
+    <div class="timer-section">
+      <h4>Brew Timer</h4>
+      <input type="number" id="timerInput" placeholder="Enter time (seconds)" />
+      <div id="timerDisplay">00:00</div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="pauseTimer()">Pause</button>
+      <button onclick="resetTimer()">Reset</button>
+      <audio id="bellSound" src="img/bell.mp3" preload="auto"></audio>
+    </div>
+
+    <div id="filterHistory" class="history"></div>
+  </div>
+
+  <!-- Espresso Calculator -->
+  <div id="espresso" class="section hidden">
+    <h3>Espresso Calculator</h3>
+
+    <label for="espressoCoffeeType">Coffee Type:</label>
+    <select id="espressoCoffeeType">
+      <option value="single">Single Origin</option>
+      <option value="blend">Blend</option>
+    </select>
+
+    <label for="espressoRoastLevel">Roast Level:</label>
+    <select id="espressoRoastLevel">
+      <option value="light">Light Roast</option>
+      <option value="dark">Dark Roast</option>
+    </select>
+    <div id="espressoRoastAdvice" class="feedback-line"></div>
+
+    <p class="brew-time-tip">
+      ⏱️ Target shot time: <strong>25–30 seconds</strong><br>
+      Faster than 25s? Grind finer. Slower than 35s? Try coarser.
+    </p>
+
+    <label for="espressoDose">Coffee Dose (g):</label>
+    <input type="number" id="espressoDose" placeholder="Enter dose amount">
+
+    <label for="espressoRatio">Ratio:</label>
+    <select id="espressoRatio">
+      <option value="1">1:1</option>
+      <option value="2" selected>1:2</option>
+      <option value="2.5">1:2.5</option>
+      <option value="3">1:3</option>
+    </select>
+
+    <label for="espressoTime">Shot Time (seconds):</label>
+    <input type="number" id="espressoTime" placeholder="Enter shot time">
+
+    <label for="espressoYield">Actual Yield (g):</label>
+    <input type="number" id="espressoYield" placeholder="Enter in-cup yield">
+
+    <label for="shotQuality">How did it taste?</label>
+    <input type="range" id="shotQuality" min="1" max="3" value="2" />
+    <div id="qualityLabel">Balanced</div>
+
+    <label for="espressoWaterTemp">Water Temperature (°C):</label>
+    <input type="number" id="espressoWaterTemp" placeholder="e.g. 93" />
+    <div id="espressoTempFeedback" class="feedback-line"></div>
+
+    <button onclick="calculateEspresso()">Calculate Espresso</button>
+    <div class="result" id="espressoResult"></div>
+
+    <div id="previousEspresso" class="history"></div>
+
+    <div class="espresso-promo">
+      <a href="https://www.sageappliances.com/en-gb/shop/espresso" target="_blank" class="promo-link">
+        <img src="img/sage-espresso.png" alt="Sage Espresso Machines" />
+        <div class="promo-text">Need to upgrade your espresso game?</div>
+      </a>
+    </div>
+  </div>
 
   <!-- Footer buttons -->
   <div class="footer-controls">
