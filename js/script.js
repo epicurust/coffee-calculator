@@ -18,15 +18,14 @@ let timerInterval = null;
 let totalSeconds = 0;
 let isPaused = true;
 
+// START BUTTON LOGIC
 startButton.addEventListener('click', () => {
   const name = nameInput.value.trim();
   if (!name) return;
 
   userName = name;
   const hour = new Date().getHours();
-  const timeGreeting = hour < 12 ? "Good morning"
-                      : hour < 18 ? "Good afternoon"
-                      : "Good evening";
+  const timeGreeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
   greeting.innerHTML = `
     <span class="caps-title">${timeGreeting.toUpperCase()}</span><br>
@@ -44,6 +43,7 @@ startButton.addEventListener('click', () => {
   resetButton.classList.remove('hidden');
 });
 
+// ICON SELECTION LOGIC
 document.getElementById('filterIcon').addEventListener('click', () => {
   document.getElementById('espressoIcon').style.display = 'none';
   document.getElementById('filterIcon').style.margin = '0 auto';
@@ -76,12 +76,15 @@ backButton.addEventListener('click', () => {
   document.querySelector('.icon-container').style.justifyContent = 'center';
 });
 
+// RESET
 resetButton.addEventListener('click', () => location.reload());
 
+// DARK MODE
 darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
+// LANGUAGE TOGGLE
 languageToggle.addEventListener('click', () => {
   language = language === "en" ? "de" : "en";
   updateLanguage();
@@ -98,12 +101,22 @@ function updateLanguage() {
       : "Wähle eine Brühmethode:";
 }
 
-// Custom ratio toggle
+// CUSTOM RATIO TOGGLE
 document.getElementById('useCustomRatio').addEventListener('change', e => {
   document.getElementById('customRatio').classList.toggle('hidden', !e.target.checked);
 });
 
-// Roast and type advice
+// SHOT QUALITY SLIDER
+const qualitySlider = document.getElementById('shotQuality');
+const qualityLabel = document.getElementById('qualityLabel');
+if (qualitySlider && qualityLabel) {
+  qualitySlider.addEventListener('input', () => {
+    const val = parseInt(qualitySlider.value);
+    qualityLabel.textContent = val === 1 ? 'Sour' : val === 3 ? 'Bitter' : 'Balanced';
+  });
+}
+
+// ROAST & TYPE ADVICE
 function giveRoastAndTypeAdvice(roastId, typeId, targetId, isEspresso = false) {
   const roast = document.getElementById(roastId).value;
   const type = document.getElementById(typeId).value;
@@ -113,18 +126,16 @@ function giveRoastAndTypeAdvice(roastId, typeId, targetId, isEspresso = false) {
 
   if (roast === "dark") {
     msg += isEspresso
-      ? "Darker roasts tend to take up more space in the portafilter and can taste more intense. You might consider starting with 16g instead of 18g for a more balanced shot."
-      : "Dark roasts are more soluble. A slightly lower dose can improve clarity and balance.";
-    msg += " That said, if you enjoy it strong — trust your taste and keep doing what works!";
+      ? "Darker roasts take up more space in the portafilter and can taste more intense. Try 16g instead of 18g for balance."
+      : "Dark roasts are more soluble — a slightly lower dose may improve clarity.";
+    msg += " But if you love it strong, trust your taste!";
   } else {
-    msg += "Light roasts can be harder to extract. A higher dose and finer grind are often needed to bring out sweetness.";
+    msg += "Light roasts can be harder to extract — you may need a higher dose and finer grind.";
   }
 
-  if (type === "single") {
-    msg += " Single origins tend to highlight subtle flavours, so adjusting grind and dose can really showcase their character.";
-  } else {
-    msg += " Blends are usually built for consistency, so use what’s comfortable — they’re forgiving.";
-  }
+  msg += type === "single"
+    ? " Single origins highlight subtle flavours — precise grind helps."
+    : " Blends are forgiving and built for consistency.";
 
   output.textContent = msg;
 }
@@ -142,36 +153,28 @@ document.getElementById('espressoCoffeeType').addEventListener('change', () => {
   giveRoastAndTypeAdvice('espressoRoastLevel', 'espressoCoffeeType', 'espressoRoastAdvice', true);
 });
 
-// Water temp feedback
+// WATER TEMP FEEDBACK
 document.getElementById('waterTemp').addEventListener('input', () => {
   const temp = parseFloat(document.getElementById('waterTemp').value);
   const feedback = document.getElementById('tempFeedback');
   if (isNaN(temp)) return feedback.textContent = "";
-  if (temp < 88) feedback.textContent = "Too cool — may under-extract.";
-  else if (temp > 96) feedback.textContent = "Very hot — could extract bitterness.";
-  else feedback.textContent = "Perfect temp range.";
+  feedback.textContent =
+    temp < 88 ? "Too cool — may under-extract." :
+    temp > 96 ? "Very hot — could extract bitterness." :
+    "Perfect temp range.";
 });
 
 document.getElementById('espressoWaterTemp').addEventListener('input', () => {
   const temp = parseFloat(document.getElementById('espressoWaterTemp').value);
   const feedback = document.getElementById('espressoTempFeedback');
   if (isNaN(temp)) return feedback.textContent = "";
-  if (temp < 88) feedback.textContent = "Too cool — espresso may be sour.";
-  else if (temp > 96) feedback.textContent = "Very hot — could extract bitterness.";
-  else feedback.textContent = "Looks good.";
+  feedback.textContent =
+    temp < 88 ? "Too cool — espresso may be sour." :
+    temp > 96 ? "Very hot — could extract bitterness." :
+    "Looks good.";
 });
 
-// Shot quality label
-const qualitySlider = document.getElementById('shotQuality');
-const qualityLabel = document.getElementById('qualityLabel');
-if (qualitySlider && qualityLabel) {
-  qualitySlider.addEventListener('input', () => {
-    const val = parseInt(qualitySlider.value);
-    qualityLabel.textContent = val === 1 ? 'Sour' : val === 3 ? 'Bitter' : 'Balanced';
-  });
-}
-
-// Brew timer
+// TIMER
 function startTimer() {
   const input = document.getElementById('timerInput');
   const display = document.getElementById('timerDisplay');
