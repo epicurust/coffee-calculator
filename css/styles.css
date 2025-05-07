@@ -8,14 +8,76 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+input, select, button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
 h1, h3, h4 {
   margin-bottom: 1rem;
   font-weight: bold;
 }
 
-input, select, button {
-  font-family: inherit;
-  font-size: 1rem;
+/* Greeting header */
+#greeting {
+  margin-bottom: 2rem;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.caps-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  display: block;
+}
+
+.script-title {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.6rem;
+  margin-top: 0.3rem;
+  color: #444;
+}
+
+/* Animation image */
+.time-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 1.5rem auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: opacity 1s ease;
+}
+
+@media (max-width: 480px) {
+  .time-image {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Name input block */
+#nameBlock {
+  margin-bottom: 2rem;
+}
+
+#nameInput {
+  max-width: 250px;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+#nameBlock.hide {
+  display: none;
 }
 
 /* Buttons */
@@ -50,69 +112,7 @@ button:hover {
   margin: 0.5rem;
 }
 
-/* Section display */
-.section {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.section.visible {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hidden {
-  display: none;
-}
-
-.result {
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-.history {
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  text-align: left;
-  padding: 1rem;
-  background: #f0f0f0;
-  border-radius: 5px;
-}
-
-/* Responsive image scaling */
-.time-image {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  max-height: 40vh;
-  object-fit: contain;
-  margin: 0 auto 1rem auto;
-  display: block;
-  border-radius: 10px;
-  transition: opacity 1s ease;
-}
-
-@media (max-width: 480px) {
-  .time-image {
-    max-width: 90%;
-    max-height: 30vh;
-  }
-}
-
-.fade-out {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Brew method icons */
+/* Icon section */
 .icon-container {
   display: flex;
   justify-content: center;
@@ -136,127 +136,62 @@ button:hover {
   margin: 0 auto;
   display: block;
 }
+
 .icon-container:has(img:only-child) {
   justify-content: center;
 }
 
-/* Form fields */
-input[type="number"],
-input[type="text"],
-select {
-  width: 80%;
-  padding: 0.5rem;
-  margin: 0.5rem auto;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-/* Brew time tip */
-.brew-time-tip {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 1rem 0;
-}
-
-/* Timer styling */
-.timer-section {
-  margin-top: 2rem;
-}
-
-#timerDisplay {
-  font-family: 'Orbitron', monospace;
-  font-size: 2rem;
-  background: black;
-  color: red;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  margin: 1rem auto;
-  display: inline-block;
-}
-
-/* Dial-in section */
-.dial-in-section {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #ccc;
-  text-align: center;
-}
-
-.dial-in-section select {
-  width: 80%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-}
-
-.dial-result {
-  margin-top: 1rem;
-  font-style: italic;
-  font-weight: bold;
-}
-
-/* Shot quality slider */
-#shotQuality {
-  width: 80%;
-  margin: 1rem auto;
-  appearance: none;
-  height: 8px;
-  border-radius: 5px;
-  background: linear-gradient(to right, #d9534f 33%, #5cb85c 33%, #5cb85c 66%, #f0ad4e 66%);
-  outline: none;
-  transition: background 0.3s ease;
-}
-
-#shotQuality::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #222;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-#qualityLabel {
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-/* Promo block */
-.espresso-promo {
-  margin-top: 3rem;
-  text-align: center;
-}
-
-.espresso-promo .promo-link {
-  display: inline-block;
-  text-decoration: none;
-  background: #f7f7f7;
-  padding: 1rem;
+/* Section layout */
+.section {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
   border-radius: 10px;
-  transition: background 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.espresso-promo .promo-link:hover {
-  background: #e0e0e0;
+.section.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.espresso-promo img {
-  width: 180px;
-  margin-bottom: 0.5rem;
+.hidden {
+  display: none;
 }
 
-.espresso-promo .promo-text {
-  font-weight: bold;
-  color: #111;
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Feedback/advice text */
+/* Feedback and helper styles */
 .feedback-line {
   font-size: 0.9rem;
   margin-top: 0.5rem;
   color: #555;
 }
 
-/* Dark mode */
+.brew-time-tip {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 1rem 0;
+}
+
+.history {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-radius: 5px;
+}
+
+/* Dark Mode */
 body.dark {
   background-color: #1e1e1e;
   color: #eaeaea;
@@ -277,7 +212,6 @@ body.dark .history {
   background: #333;
 }
 
-body.dark .promo-text,
 body.dark .brew-time-tip,
 body.dark .feedback-line {
   color: #ccc;
