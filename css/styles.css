@@ -1,3 +1,4 @@
+/* Global layout */
 body {
   font-family: 'Helvetica Neue', sans-serif;
   background-color: #f4f4f4;
@@ -8,23 +9,42 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.time-image {
-  max-width: 600px;
-  width: 100%;
-  height: auto;
-  transition: opacity 1s ease;
+h1, h3, h4 {
   margin-bottom: 1rem;
 }
 
-.fade-out {
-  opacity: 0;
-  pointer-events: none;
+input, select {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  width: 80%;
 }
 
-.hidden {
-  display: none;
+/* Buttons */
+button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #baa390;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
+button:hover {
+  background-color: #a48d79;
+}
+
+#darkModeToggle, #languageToggle, #resetButton {
+  margin-top: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  background-color: #666;
+  color: #fff;
+}
+
+/* Sections */
 .section {
   max-width: 500px;
   margin: 2rem auto;
@@ -41,9 +61,27 @@ body {
   display: block;
   opacity: 1;
   transform: translateY(0);
-  margin-top: 2rem;
 }
 
+.hidden {
+  display: none;
+}
+
+.result {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.history {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-radius: 5px;
+}
+
+/* Icons */
 .icon-container {
   display: flex;
   justify-content: center;
@@ -63,74 +101,26 @@ body {
   transform: scale(1.1);
 }
 
-/* Center single icon */
 .icon-container img:only-child {
   margin: 0 auto;
   display: block;
 }
 
-input, select {
-  display: block;
-  margin: 0.5rem auto;
-  padding: 0.5rem;
-  width: 80%;
+/* Time-based image */
+.time-image {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  transition: opacity 1s ease;
+  margin-bottom: 1rem;
 }
 
-button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #baa390;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.result {
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-#backButton {
-  background-color: #888;
-  margin-top: 1rem;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-}
-
-#darkModeToggle {
-  margin-top: 2rem;
-  background-color: #666;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-/* Dark mode */
-body.dark {
-  background-color: #1e1e1e;
-  color: #eaeaea;
-}
-
-body.dark .section {
-  background-color: #2a2a2a;
-}
-
-body.dark button {
-  background-color: #444;
-}
-
-body.dark #darkModeToggle {
-  background-color: #bbb;
-  color: #111;
-}
-
-/* Espresso promo section */
+/* Espresso Promo */
 .espresso-promo {
   margin-top: 2rem;
   text-align: center;
@@ -151,4 +141,43 @@ body.dark #darkModeToggle {
   font-size: 1rem;
   font-weight: bold;
   color: inherit;
+}
+
+/* Vintage Timer */
+.timer-section {
+  margin-top: 2rem;
+}
+
+#timerDisplay {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  background: black;
+  color: red;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 1rem auto;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #1e1e1e;
+  color: #eaeaea;
+}
+
+body.dark .section {
+  background-color: #2a2a2a;
+}
+
+body.dark button {
+  background-color: #444;
+}
+
+body.dark #darkModeToggle {
+  background-color: #bbb;
+  color: #111;
+}
+
+body.dark .history {
+  background: #333;
 }
