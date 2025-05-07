@@ -1,40 +1,67 @@
 const greeting = document.getElementById('greeting');
 const nameInput = document.getElementById('nameInput');
 const startButton = document.getElementById('startButton');
-const timeImage = document.getElementById('timeImage');
+const introImage = document.getElementById('introImage');
+const imageContainer = document.getElementById('imageContainer');
 const iconSection = document.getElementById('iconSection');
-
-const hour = new Date().getHours();
-if (hour < 12) {
-  timeImage.src = "https://img.freepik.com/premium-vector/morning-coffee_925452-21.jpg";
-  greeting.textContent = "Good Morning";
-} else if (hour < 18) {
-  timeImage.src = "https://images.template.net/182120/coffee-vector-edit-online.jpg";
-  greeting.textContent = "Good Afternoon";
-} else {
-  timeImage.src = "https://img.freepik.com/premium-vector/coffee-mug-night-illustration_188544-5097.jpg";
-  greeting.textContent = "Good Evening";
-}
+const filterSection = document.getElementById('filter');
+const espressoSection = document.getElementById('espresso');
+const backButton = document.getElementById('backButton');
+const darkModeToggle = document.getElementById('darkModeToggle');
 
 let userName = "";
 
+const hour = new Date().getHours();
+if (hour < 12) {
+  introImage.src = "https://img.freepik.com/premium-vector/morning-coffee_925452-21.jpg";
+} else if (hour < 18) {
+  introImage.src = "https://images.template.net/182120/coffee-vector-edit-online.jpg";
+} else {
+  introImage.src = "https://img.freepik.com/premium-vector/coffee-mug-night-illustration_188544-5097.jpg";
+}
+
 startButton.addEventListener('click', () => {
   const name = nameInput.value.trim();
-  if (name) {
-    userName = name;
-    greeting.textContent += `, ${userName}!`;
-    nameInput.style.display = 'none';
-    startButton.style.display = 'none';
-    timeImage.classList.add('fade-out');
+  if (!name) return;
+  userName = name;
+  greeting.textContent = `Hello, ${userName}!`;
+
+  introImage.classList.add('fade-out');
+
+  introImage.addEventListener('transitionend', () => {
+    imageContainer.style.display = 'none';
     iconSection.classList.remove('hidden');
-  }
+    iconSection.classList.add('visible');
+  }, { once: true });
+
+  nameInput.style.display = 'none';
+  startButton.style.display = 'none';
 });
 
-function showSection(sectionId) {
-  document.getElementById('filter').classList.add('hidden');
-  document.getElementById('espresso').classList.add('hidden');
-  document.getElementById(sectionId).classList.remove('hidden');
-}
+document.getElementById('filterIcon').addEventListener('click', () => {
+  iconSection.classList.remove('visible');
+  filterSection.classList.remove('hidden');
+  filterSection.classList.add('visible');
+  backButton.classList.remove('hidden');
+});
+
+document.getElementById('espressoIcon').addEventListener('click', () => {
+  iconSection.classList.remove('visible');
+  espressoSection.classList.remove('hidden');
+  espressoSection.classList.add('visible');
+  backButton.classList.remove('hidden');
+});
+
+backButton.addEventListener('click', () => {
+  filterSection.classList.remove('visible');
+  espressoSection.classList.remove('visible');
+  iconSection.classList.add('visible');
+  backButton.classList.add('hidden');
+});
+
+darkModeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+});
 
 function calculateFilter() {
   const coffee = parseFloat(document.getElementById('filterCoffee').value);
@@ -59,7 +86,7 @@ function calculateFilter() {
     const yieldInCup = water - (neededCoffee * 2);
     output = `Hey ${userName}, with ${water}g water: use ${neededCoffee.toFixed(1)}g coffee. Estimated in-cup yield: ${yieldInCup.toFixed(0)}g.`;
   } else {
-    output = "Please enter coffee, water, or people.";
+    output = "Please enter coffee, water, or number of people.";
   }
 
   result.innerHTML = output + "<br><em>Enjoy your coffee!</em>";
