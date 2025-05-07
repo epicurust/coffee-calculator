@@ -18,7 +18,7 @@ input, select, button {
   font-size: 1rem;
 }
 
-/* Controls */
+/* Buttons */
 button {
   margin: 0.5rem;
   padding: 0.6rem 1.2rem;
@@ -78,13 +78,24 @@ button:hover {
   border-radius: 5px;
 }
 
-/* Intro image */
+/* Responsive image scaling */
 .time-image {
-  max-width: 600px;
   width: 100%;
+  max-width: 500px;
   height: auto;
+  max-height: 40vh;
+  object-fit: cover;
+  margin: 0 auto 1rem auto;
+  display: block;
+  border-radius: 10px;
   transition: opacity 1s ease;
-  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .time-image {
+    max-width: 90%;
+    max-height: 30vh;
+  }
 }
 
 .fade-out {
