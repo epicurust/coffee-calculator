@@ -63,6 +63,12 @@ body {
   transform: scale(1.1);
 }
 
+/* Center single icon */
+.icon-container img:only-child {
+  margin: 0 auto;
+  display: block;
+}
+
 input, select {
   display: block;
   margin: 0.5rem auto;
@@ -122,4 +128,27 @@ body.dark button {
 body.dark #darkModeToggle {
   background-color: #bbb;
   color: #111;
+}
+
+/* Espresso promo section */
+.espresso-promo {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.espresso-promo img {
+  width: 180px;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.espresso-promo img:hover {
+  transform: scale(1.05);
+}
+
+.espresso-promo p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: inherit;
 }
