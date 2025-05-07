@@ -7,18 +7,25 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <h1 id="greeting"></h1>
-  <img id="timeImage" class="time-image" src="" alt="Time of Day Image">
+  <button id="darkModeToggle">🌓 Toggle Dark Mode</button>
+  <h1 id="greeting">Welcome to the Coffee Calculator</h1>
+
+  <div id="imageContainer">
+    <img id="introImage" class="time-image" src="" alt="Time of Day Coffee Image">
+  </div>
+
   <input type="text" id="nameInput" placeholder="What's your name?" />
   <button id="startButton">Start</button>
 
-  <div id="iconSection" class="hidden">
+  <div id="iconSection" class="section hidden">
     <p>Select a brew method to get started:</p>
     <div class="icon-container">
-      <img src="https://cdn-icons-png.flaticon.com/512/1951/1951776.png" alt="Filter" onclick="showSection('filter')">
-      <img src="https://tse3.mm.bing.net/th/id/OIP.4RVzxeO7lISXPvTJj3P27QHaHa?rs=1&pid=ImgDetMain" alt="Espresso" onclick="showSection('espresso')">
+      <img id="filterIcon" src="https://cdn-icons-png.flaticon.com/512/1951/1951776.png" alt="Filter">
+      <img id="espressoIcon" src="https://tse3.mm.bing.net/th/id/OIP.4RVzxeO7lISXPvTJj3P27QHaHa?rs=1&pid=ImgDetMain" alt="Espresso">
     </div>
   </div>
+
+  <button id="backButton" class="hidden">← Back</button>
 
   <div id="filter" class="section hidden">
     <h3>Filter Coffee Calculator</h3>
