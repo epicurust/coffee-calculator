@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Josefin+Sans:wght@400;600;700&display=swap');
+
 body {
   font-family: 'Josefin Sans', sans-serif;
   background-color: #f4f4f4;
@@ -8,6 +10,12 @@ body {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+input, select, button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* Greeting */
 #greeting {
   margin-bottom: 2rem;
   text-align: center;
@@ -16,7 +24,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Josefin Sans', sans-serif;
 }
 
 .caps-title {
@@ -35,15 +42,14 @@ body {
   color: #444;
 }
 
-
-/* Animated image */
+/* Animation image */
 .time-image {
   width: 250px;
   height: 250px;
   object-fit: cover;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto 1.5rem auto;
+  margin: 0 auto 2rem;
   display: block;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: opacity 1s ease;
@@ -74,7 +80,7 @@ body {
 
 /* Buttons */
 button {
-  margin: 0.5rem;
+  margin: 0.75rem 0;
   padding: 0.6rem 1.2rem;
   background-color: #baa390;
   color: #fff;
@@ -96,7 +102,7 @@ button:hover {
 }
 
 .footer-controls {
-  margin-top: 4rem;
+  margin-top: 3rem;
   text-align: center;
 }
 
@@ -109,7 +115,7 @@ button:hover {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 
 #iconSection p {
@@ -133,7 +139,6 @@ button:hover {
   margin: 0 auto;
   display: block;
 }
-
 .icon-container:has(img:only-child) {
   justify-content: center;
 }
@@ -142,7 +147,7 @@ button:hover {
 .section {
   max-width: 500px;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -167,7 +172,23 @@ button:hover {
   pointer-events: none;
 }
 
-/* Feedback and helper text */
+/* Input layout */
+label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  width: 80%;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Helper text */
 .feedback-line {
   font-size: 0.9rem;
   margin-top: 0.5rem;
@@ -205,7 +226,7 @@ button:hover {
   display: inline-block;
 }
 
-/* Promo */
+/* Promo block */
 .espresso-promo {
   margin-top: 3rem;
   text-align: center;
