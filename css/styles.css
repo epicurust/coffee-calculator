@@ -1,18 +1,16 @@
-/* Typography and layout */
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #ffffff;
-  color: #111111;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
   margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  scroll-behavior: smooth;
+  padding: 2rem;
+  text-align: center;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-h1, h2, h3, h4 {
-  font-weight: 600;
-  text-align: left;
-  margin: 1rem 0 0.5rem 0;
+h1, h3, h4 {
+  margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 input, select, button {
@@ -20,99 +18,78 @@ input, select, button {
   font-size: 1rem;
 }
 
-/* Header */
-header {
-  padding: 2rem 1rem;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: center;
+/* Controls */
+button {
+  margin: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #baa390;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-header h1 {
-  font-size: 2rem;
-  margin: 0;
+button:hover {
+  background-color: #a28c75;
 }
 
-/* Main layout */
-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+#darkModeToggle, #languageToggle, #resetButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: #666;
+  color: #fff;
 }
 
-/* Section spacing */
-section {
-  margin-bottom: 3rem;
-}
-
-.section.hidden {
-  display: none;
+/* Section display */
+.section {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .section.visible {
   display: block;
-  animation: fadeIn 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+.hidden {
+  display: none;
 }
 
-/* Image */
+.result {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.history {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-radius: 5px;
+}
+
+/* Intro image */
 .time-image {
+  max-width: 600px;
   width: 100%;
-  max-width: 640px;
   height: auto;
-  margin: 1rem 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 1s ease;
+  margin-bottom: 1rem;
 }
 
 .fade-out {
   opacity: 0;
   pointer-events: none;
-}
-
-/* Form styling */
-input[type="text"],
-input[type="number"],
-select {
-  width: 100%;
-  max-width: 400px;
-  margin: 0.5rem auto;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: #fdfdfd;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #111;
-  box-shadow: 0 0 0 1px #111;
-}
-
-/* Button styling */
-button {
-  background-color: #111111;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  margin: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #333333;
-}
-
-.controls-inline {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
 }
 
 /* Brew method icons */
@@ -126,75 +103,104 @@ button:hover {
 .icon-container img {
   width: 100px;
   height: 100px;
-  border-radius: 4px;
-  transition: transform 0.2s ease;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .icon-container img:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .icon-container img:only-child {
   margin: 0 auto;
   display: block;
 }
+.icon-container:has(img:only-child) {
+  justify-content: center;
+}
 
-/* Brew time tips */
+/* Form fields */
+input[type="number"],
+input[type="text"],
+select {
+  width: 80%;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Brew time tip */
 .brew-time-tip {
   font-size: 0.9rem;
   color: #666;
   margin: 1rem 0;
-  text-align: left;
 }
 
-/* Dial-in */
-.dial-in-section {
-  border-top: 1px solid #e0e0e0;
-  padding-top: 2rem;
-  margin-top: 2rem;
-  text-align: left;
-}
-
-.dial-in-section select,
-.dial-in-section button {
-  margin-top: 1rem;
-}
-
-.dial-result {
-  font-weight: bold;
-  margin-top: 1rem;
-}
-
-/* Timer */
+/* Timer styling */
 .timer-section {
   margin-top: 2rem;
-  text-align: left;
 }
 
 #timerDisplay {
   font-family: 'Orbitron', monospace;
-  background-color: #000;
+  font-size: 2rem;
+  background: black;
   color: red;
   padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
+  margin: 1rem auto;
   display: inline-block;
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
 }
 
-/* Shot quality */
+/* Dial-in section */
+.dial-in-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+
+.dial-in-section select {
+  width: 80%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.dial-result {
+  margin-top: 1rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* Shot quality slider */
 #shotQuality {
-  width: 100%;
-  margin: 1rem 0;
+  width: 80%;
+  margin: 1rem auto;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #d9534f 33%, #5cb85c 33%, #5cb85c 66%, #f0ad4e 66%);
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+#shotQuality::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #222;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 #qualityLabel {
-  text-align: left;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
-/* Promo card */
+/* Promo block */
 .espresso-promo {
   margin-top: 3rem;
   text-align: center;
@@ -205,7 +211,7 @@ button:hover {
   text-decoration: none;
   background: #f7f7f7;
   padding: 1rem;
-  border-radius: 6px;
+  border-radius: 10px;
   transition: background 0.3s ease;
 }
 
@@ -219,23 +225,14 @@ button:hover {
 }
 
 .espresso-promo .promo-text {
-  font-weight: 600;
+  font-weight: bold;
   color: #111;
-}
-
-/* Footer */
-footer {
-  border-top: 1px solid #e0e0e0;
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
-  color: #999;
-  text-align: center;
 }
 
 /* Dark mode */
 body.dark {
-  background-color: #1a1a1a;
-  color: #eee;
+  background-color: #1e1e1e;
+  color: #eaeaea;
 }
 
 body.dark input,
@@ -249,12 +246,11 @@ body.dark button {
   background-color: #333;
 }
 
-body.dark footer {
-  border-color: #333;
-  color: #777;
+body.dark .history {
+  background: #333;
 }
 
-body.dark .brew-time-tip,
-body.dark .promo-text {
+body.dark .promo-text,
+body.dark .brew-time-tip {
   color: #ccc;
 }
