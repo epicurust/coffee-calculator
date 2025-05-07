@@ -2,19 +2,20 @@
 
 body {
   font-family: 'Manrope', sans-serif;
+  background-color: #111827;
+  color: #fff;
   margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  color: #111;
+  padding: 2rem;
   text-align: center;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.dark {
-  background-color: #111827;
-  color: #fff;
+body.light {
+  background-color: #f4f4f4;
+  color: #111;
 }
 
+/* Header */
 header.header {
   margin: 3rem auto 2rem auto;
   max-width: 800px;
@@ -26,12 +27,12 @@ header.header {
   font-size: 18px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #555;
+  color: #ccc;
   margin-bottom: 0.5rem;
 }
 
-body.dark .caps-title {
-  color: #ccc;
+body.light .caps-title {
+  color: #555;
 }
 
 .script-title {
@@ -39,11 +40,11 @@ body.dark .caps-title {
   font-weight: 700;
   font-size: 72px;
   margin: 0 auto;
-  color: #222;
+  color: #fff;
 }
 
-body.dark .script-title {
-  color: #fff;
+body.light .script-title {
+  color: #222;
 }
 
 /* Animation */
@@ -57,6 +58,14 @@ body.dark .script-title {
   transition: opacity 1s ease;
 }
 
+@media (max-width: 480px) {
+  .animation-img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Input section */
 .input-section {
   max-width: 400px;
   margin: 0 auto 2rem;
@@ -98,12 +107,12 @@ body.dark .input-section input {
   background-color: #2563eb;
 }
 
-/* Icon Section */
+/* Icon selection */
 .icon-container {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin: 1rem auto 2rem auto;
+  margin: 1.5rem 0;
 }
 
 .icon-container img {
@@ -118,17 +127,19 @@ body.dark .input-section input {
   transform: scale(1.05);
 }
 
+/* Section blocks */
 .section {
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: #1f2937;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   display: none;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
+  color: #fff;
 }
 
 .section.visible {
@@ -137,12 +148,119 @@ body.dark .input-section input {
   transform: translateY(0);
 }
 
-button {
-  font-family: 'Manrope', sans-serif;
+body.light .section {
+  background-color: #fff;
+  color: #111;
 }
 
+label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  text-align: left;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  width: 80%;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+/* Result and feedback */
+.result {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.feedback-line {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: #ccc;
+}
+
+body.light .feedback-line {
+  color: #555;
+}
+
+.brew-time-tip {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin: 1rem 0;
+}
+
+body.light .brew-time-tip {
+  color: #666;
+}
+
+.history {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 1rem;
+  background: #2a2a2a;
+  border-radius: 5px;
+}
+
+body.light .history {
+  background: #f4f4f4;
+}
+
+/* Timer */
+.timer-section {
+  margin-top: 2rem;
+}
+
+#timerDisplay {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  background: black;
+  color: red;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+  display: inline-block;
+}
+
+/* Promo block */
+.espresso-promo {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.espresso-promo .promo-link {
+  display: inline-block;
+  text-decoration: none;
+  background: #f7f7f7;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.espresso-promo .promo-link:hover {
+  background: #e0e0e0;
+}
+
+.espresso-promo img {
+  width: 180px;
+  margin-bottom: 0.5rem;
+}
+
+.espresso-promo .promo-text {
+  font-weight: bold;
+  color: #111;
+}
+
+/* Nav buttons */
 .nav-controls {
-  margin: 2rem auto 0;
+  margin-top: 2rem;
 }
 
 #backButton,
@@ -162,8 +280,9 @@ button {
   background-color: #4b5563;
 }
 
+/* Toggle buttons */
 .toggle-buttons {
-  margin: 3rem auto 0;
+  margin: 3rem auto;
   display: flex;
   justify-content: center;
   gap: 1rem;
