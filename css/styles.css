@@ -1,0 +1,57 @@
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #f4f4f4;
+  padding: 2rem;
+  text-align: center;
+}
+img.time-image {
+  max-width: 600px;
+  width: 100%;
+  transition: opacity 1s ease;
+  margin-bottom: 1rem;
+}
+.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.hidden {
+  display: none;
+}
+.icon-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.icon-container img {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.section {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+label, input, select {
+  display: block;
+  margin: 0.5rem auto;
+  width: 80%;
+  padding: 0.5rem;
+}
+button {
+  padding: 0.5rem 1rem;
+  background: #baa390;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.result {
+  margin-top: 1rem;
+  font-weight: bold;
+}
