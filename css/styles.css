@@ -13,12 +13,7 @@ input, select, button {
   font-size: 1rem;
 }
 
-h1, h3, h4 {
-  margin-bottom: 1rem;
-  font-weight: bold;
-}
-
-/* Greeting header */
+/* Heading */
 #greeting {
   margin-bottom: 2rem;
   text-align: center;
@@ -44,7 +39,7 @@ h1, h3, h4 {
   color: #444;
 }
 
-/* Animation image */
+/* Circular animation image */
 .time-image {
   width: 250px;
   height: 250px;
@@ -112,7 +107,7 @@ button:hover {
   margin: 0.5rem;
 }
 
-/* Icon section */
+/* Icon display */
 .icon-container {
   display: flex;
   justify-content: center;
@@ -136,12 +131,11 @@ button:hover {
   margin: 0 auto;
   display: block;
 }
-
 .icon-container:has(img:only-child) {
   justify-content: center;
 }
 
-/* Section layout */
+/* Section styles */
 .section {
   max-width: 500px;
   margin: 2rem auto;
@@ -191,7 +185,52 @@ button:hover {
   border-radius: 5px;
 }
 
-/* Dark Mode */
+/* Timer */
+.timer-section {
+  margin-top: 2rem;
+}
+
+#timerDisplay {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  background: black;
+  color: red;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+  display: inline-block;
+}
+
+/* Promo block */
+.espresso-promo {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.espresso-promo .promo-link {
+  display: inline-block;
+  text-decoration: none;
+  background: #f7f7f7;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.espresso-promo .promo-link:hover {
+  background: #e0e0e0;
+}
+
+.espresso-promo img {
+  width: 180px;
+  margin-bottom: 0.5rem;
+}
+
+.espresso-promo .promo-text {
+  font-weight: bold;
+  color: #111;
+}
+
+/* Dark mode */
 body.dark {
   background-color: #1e1e1e;
   color: #eaeaea;
@@ -212,6 +251,7 @@ body.dark .history {
   background: #333;
 }
 
+body.dark .promo-text,
 body.dark .brew-time-tip,
 body.dark .feedback-line {
   color: #ccc;
