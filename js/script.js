@@ -12,11 +12,10 @@ const resetButton = document.getElementById('resetButton');
 const darkModeToggle = document.getElementById('darkModeToggle');
 const languageToggle = document.getElementById('languageToggle');
 
-// Global state
 let userName = "";
-let language = "en"; // default language
+let language = "en";
 let timerInterval = null;
-let totalSeconds = 180; // default 3:00
+let totalSeconds = 0;
 let isPaused = true;
 
 // Set intro image based on time
@@ -29,7 +28,7 @@ if (hour < 12) {
   introImage.src = "img/evening.jpg";
 }
 
-// Event: Start app
+// START
 startButton.addEventListener('click', () => {
   const name = nameInput.value.trim();
   if (!name) return;
@@ -51,53 +50,48 @@ startButton.addEventListener('click', () => {
   resetButton.classList.remove('hidden');
 });
 
-// Event: Icon click - filter
+// ICON LOGIC
 document.getElementById('filterIcon').addEventListener('click', () => {
   document.getElementById('espressoIcon').style.display = 'none';
   document.getElementById('filterIcon').style.margin = '0 auto';
-
   iconSection.classList.remove('visible');
   filterSection.classList.remove('hidden');
   filterSection.classList.add('visible');
   backButton.classList.remove('hidden');
 });
 
-// Event: Icon click - espresso
 document.getElementById('espressoIcon').addEventListener('click', () => {
   document.getElementById('filterIcon').style.display = 'none';
   document.getElementById('espressoIcon').style.margin = '0 auto';
-
   iconSection.classList.remove('visible');
   espressoSection.classList.remove('hidden');
   espressoSection.classList.add('visible');
   backButton.classList.remove('hidden');
 });
 
-// Event: Back to brew method selection
+// BACK / RESET
 backButton.addEventListener('click', () => {
   filterSection.classList.remove('visible');
   espressoSection.classList.remove('visible');
   iconSection.classList.add('visible');
   backButton.classList.add('hidden');
 
-  // Reset icons
   document.getElementById('filterIcon').style.display = 'inline-block';
   document.getElementById('espressoIcon').style.display = 'inline-block';
   document.getElementById('filterIcon').style.margin = '';
   document.getElementById('espressoIcon').style.margin = '';
 });
 
-// Event: Reset app to start
 resetButton.addEventListener('click', () => {
   location.reload();
 });
 
-// Event: Dark mode toggle
+// DARK MODE
 darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
-// Event: Language toggle
+// LANGUAGE
 languageToggle.addEventListener('click', () => {
   language = language === "en" ? "de" : "en";
   updateLanguage();
@@ -105,8 +99,16 @@ languageToggle.addEventListener('click', () => {
 
 function updateLanguage() {
   greeting.textContent = language === "en" ? `Welcome to the Coffee Calculator` : `Willkommen beim Kaffeerechner`;
-  document.querySelector('[data-i18n="choose_brew"]').textContent = language === "en" ? "Select a brew method to get started:" : "Wähle eine Brühmethode:";
+  document.querySelector('[data-i18n="choose_brew"]').textContent = language === "en"
+    ? "Select a brew method to get started:"
+    : "Wähle eine Brühmethode:";
 }
+
+// CUSTOM RATIO TOGGLE
+document.getElementById('useCustomRatio').addEventListener('change', e => {
+  const input = document.getElementById('customRatio');
+  input.classList.toggle('hidden', !e.target.checked);
+});
 
 // FILTER CALCULATION
 function calculateFilter() {
@@ -151,8 +153,6 @@ function calculateFilter() {
   result.innerHTML = output + `<br><em>Enjoy your coffee!</em><br><a href="https://www.beanz.com/en-gb" target="_blank">☕ Recommended Coffees on Beanz.com</a>`;
   const now = new Date().toLocaleTimeString();
   history.innerHTML += `<div>🕓 ${now} – ${output}</div>`;
-
-  // Save to localStorage
   localStorage.setItem('lastBrew', JSON.stringify({ output, time: now }));
 }
 
@@ -172,26 +172,16 @@ function calculateEspresso() {
   }
 }
 
-// Custom ratio toggle logic
-document.getElementById('useCustomRatio').addEventListener('change', e => {
-  const input = document.getElementById('customRatio');
-  input.classList.toggle('hidden', !e.target.checked);
-});
-
-// Load last brew on page load
-window.addEventListener('DOMContentLoaded', () => {
-  const last = JSON.parse(localStorage.getItem('lastBrew'));
-  if (last) {
-    const history = document.getElementById('filterHistory');
-    history.innerHTML += `<div>🕓 Last Saved – ${last.time}: ${last.output}</div>`;
-  }
-});
-
-
-// TIMER LOGIC
+// TIMER FUNCTIONS
 function startTimer() {
+  const input = document.getElementById('timerInput');
   const display = document.getElementById('timerDisplay');
   const bell = document.getElementById('bellSound');
+
+  if (input.value && totalSeconds === 0) {
+    totalSeconds = parseInt(input.value, 10);
+    display.textContent = formatTime(totalSeconds);
+  }
 
   if (!isPaused) return;
 
@@ -214,8 +204,9 @@ function pauseTimer() {
 
 function resetTimer() {
   pauseTimer();
-  totalSeconds = 180;
-  document.getElementById('timerDisplay').textContent = formatTime(totalSeconds);
+  totalSeconds = 0;
+  document.getElementById('timerDisplay').textContent = "00:00";
+  document.getElementById('timerInput').value = "";
 }
 
 function formatTime(seconds) {
@@ -223,3 +214,12 @@ function formatTime(seconds) {
   const s = String(seconds % 60).padStart(2, '0');
   return `${m}:${s}`;
 }
+
+// LOAD LAST BREW
+window.addEventListener('DOMContentLoaded', () => {
+  const last = JSON.parse(localStorage.getItem('lastBrew'));
+  if (last) {
+    const history = document.getElementById('filterHistory');
+    history.innerHTML += `<div>🕓 Last Saved – ${last.time}: ${last.output}</div>`;
+  }
+});
