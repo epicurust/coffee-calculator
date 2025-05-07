@@ -11,7 +11,7 @@ const darkModeToggle = document.getElementById('darkModeToggle');
 
 let userName = "";
 
-// Load time-appropriate image from /img/
+// Time-based local image
 const hour = new Date().getHours();
 if (hour < 12) {
   introImage.src = "img/morning.jpg";
@@ -40,7 +40,11 @@ startButton.addEventListener('click', () => {
   startButton.style.display = 'none';
 });
 
+// Brew method selection with icon logic
 document.getElementById('filterIcon').addEventListener('click', () => {
+  document.getElementById('espressoIcon').style.display = 'none';
+  document.getElementById('filterIcon').style.margin = '0 auto';
+
   iconSection.classList.remove('visible');
   filterSection.classList.remove('hidden');
   filterSection.classList.add('visible');
@@ -48,23 +52,36 @@ document.getElementById('filterIcon').addEventListener('click', () => {
 });
 
 document.getElementById('espressoIcon').addEventListener('click', () => {
+  document.getElementById('filterIcon').style.display = 'none';
+  document.getElementById('espressoIcon').style.margin = '0 auto';
+
   iconSection.classList.remove('visible');
   espressoSection.classList.remove('hidden');
   espressoSection.classList.add('visible');
   backButton.classList.remove('hidden');
 });
 
+// Back button
 backButton.addEventListener('click', () => {
   filterSection.classList.remove('visible');
   espressoSection.classList.remove('visible');
+
   iconSection.classList.add('visible');
   backButton.classList.add('hidden');
+
+  // Reset icon visibility
+  document.getElementById('filterIcon').style.display = 'inline-block';
+  document.getElementById('espressoIcon').style.display = 'inline-block';
+  document.getElementById('filterIcon').style.margin = '';
+  document.getElementById('espressoIcon').style.margin = '';
 });
 
+// Dark mode toggle
 darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
+// Filter calculator
 function calculateFilter() {
   const coffee = parseFloat(document.getElementById('filterCoffee').value);
   const water = parseFloat(document.getElementById('filterWater').value);
@@ -94,6 +111,7 @@ function calculateFilter() {
   result.innerHTML = output + "<br><em>Enjoy your coffee!</em>";
 }
 
+// Espresso calculator
 function calculateEspresso() {
   const dose = parseFloat(document.getElementById('espressoDose').value);
   const ratio = parseFloat(document.getElementById('espressoRatio').value);
