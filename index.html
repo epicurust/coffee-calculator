@@ -11,21 +11,17 @@
 </head>
 <body>
 
-  <!-- Greeting -->
   <h1 id="greeting">Welcome to the Coffee Calculator</h1>
 
-  <!-- Intro image -->
   <div id="imageContainer">
     <img id="introImage" class="time-image" src="" alt="Time of Day Coffee Image">
   </div>
 
-  <!-- Name input -->
   <input type="text" id="nameInput" placeholder="What's your name?" />
   <button id="startButton">Start</button>
   <button id="darkModeToggle">🌓 Toggle Dark Mode</button>
   <button id="languageToggle">🌐 DE / EN</button>
 
-  <!-- Brew method icons -->
   <div id="iconSection" class="section hidden">
     <p data-i18n="choose_brew">Select a brew method to get started:</p>
     <div class="icon-container">
@@ -34,7 +30,6 @@
     </div>
   </div>
 
-  <!-- Back & Reset -->
   <button id="backButton" class="hidden">← Back</button>
   <button id="resetButton" class="hidden">🔁 Reset</button>
 
@@ -65,9 +60,10 @@
     <button onclick="calculateFilter()">Calculate Filter</button>
     <div class="result" id="filterResult"></div>
 
-    <!-- Vintage Timer -->
+    <!-- Editable Vintage Timer -->
     <div class="timer-section">
       <h4>Brew Timer</h4>
+      <input type="number" id="timerInput" placeholder="Enter time (seconds)" />
       <div id="timerDisplay">00:00</div>
       <button onclick="startTimer()">Start</button>
       <button onclick="pauseTimer()">Pause</button>
@@ -81,6 +77,7 @@
   <!-- Espresso Calculator -->
   <div id="espresso" class="section hidden">
     <h3>Espresso Calculator</h3>
+
     <label for="espressoDose">Coffee Dose (g):</label>
     <input type="number" id="espressoDose" placeholder="Enter dose amount">
 
@@ -103,7 +100,6 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
   <script src="js/script.js"></script>
 </body>
 </html>
