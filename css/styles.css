@@ -265,3 +265,11 @@ body.dark .promo-text,
 body.dark .brew-time-tip {
   color: #ccc;
 }
+.footer-controls {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.footer-controls button {
+  margin: 0.5rem;
+}
