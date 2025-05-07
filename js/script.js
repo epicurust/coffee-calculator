@@ -18,25 +18,20 @@ let timerInterval = null;
 let totalSeconds = 0;
 let isPaused = true;
 
-// Set intro image based on time
+// Load time-appropriate image
 const hour = new Date().getHours();
-if (hour < 12) {
-  introImage.src = "img/morning.jpg";
-} else if (hour < 18) {
-  introImage.src = "img/afternoon.jpg";
-} else {
-  introImage.src = "img/evening.jpg";
-}
+introImage.src = hour < 12 ? "img/morning.jpg"
+               : hour < 18 ? "img/afternoon.jpg"
+               : "img/evening.jpg";
 
-// START
+// Start app
 startButton.addEventListener('click', () => {
   const name = nameInput.value.trim();
   if (!name) return;
-
   userName = name;
   greeting.textContent = `Hello, ${userName}!`;
-
   introImage.classList.add('fade-out');
+
   introImage.addEventListener('transitionend', () => {
     imageContainer.style.display = 'none';
     iconSection.classList.remove('hidden');
@@ -50,10 +45,12 @@ startButton.addEventListener('click', () => {
   resetButton.classList.remove('hidden');
 });
 
-// ICON LOGIC
+// Click icons
 document.getElementById('filterIcon').addEventListener('click', () => {
   document.getElementById('espressoIcon').style.display = 'none';
   document.getElementById('filterIcon').style.margin = '0 auto';
+  document.querySelector('.icon-container').style.justifyContent = 'center';
+
   iconSection.classList.remove('visible');
   filterSection.classList.remove('hidden');
   filterSection.classList.add('visible');
@@ -63,54 +60,60 @@ document.getElementById('filterIcon').addEventListener('click', () => {
 document.getElementById('espressoIcon').addEventListener('click', () => {
   document.getElementById('filterIcon').style.display = 'none';
   document.getElementById('espressoIcon').style.margin = '0 auto';
+  document.querySelector('.icon-container').style.justifyContent = 'center';
+
   iconSection.classList.remove('visible');
   espressoSection.classList.remove('hidden');
   espressoSection.classList.add('visible');
   backButton.classList.remove('hidden');
 });
 
-// BACK / RESET
+// Back button
 backButton.addEventListener('click', () => {
   filterSection.classList.remove('visible');
   espressoSection.classList.remove('visible');
   iconSection.classList.add('visible');
   backButton.classList.add('hidden');
 
-  document.getElementById('filterIcon').style.display = 'inline-block';
-  document.getElementById('espressoIcon').style.display = 'inline-block';
-  document.getElementById('filterIcon').style.margin = '';
-  document.getElementById('espressoIcon').style.margin = '';
+  // Reset icon state
+  const icons = document.querySelectorAll('.icon-container img');
+  icons.forEach(icon => {
+    icon.style.display = 'inline-block';
+    icon.style.margin = '';
+  });
+  document.querySelector('.icon-container').style.justifyContent = 'center';
 });
 
-resetButton.addEventListener('click', () => {
-  location.reload();
-});
+// Reset button
+resetButton.addEventListener('click', () => location.reload());
 
-// DARK MODE
+// Dark mode toggle
 darkModeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
-// LANGUAGE
+// Language toggle
 languageToggle.addEventListener('click', () => {
   language = language === "en" ? "de" : "en";
   updateLanguage();
 });
 
 function updateLanguage() {
-  greeting.textContent = language === "en" ? `Welcome to the Coffee Calculator` : `Willkommen beim Kaffeerechner`;
-  document.querySelector('[data-i18n="choose_brew"]').textContent = language === "en"
-    ? "Select a brew method to get started:"
-    : "Wähle eine Brühmethode:";
+  greeting.textContent = language === "en"
+    ? "Welcome to the Coffee Calculator"
+    : "Willkommen beim Kaffeerechner";
+  document.querySelector('[data-i18n="choose_brew"]').textContent =
+    language === "en"
+      ? "Select a brew method to get started:"
+      : "Wähle eine Brühmethode:";
 }
 
-// CUSTOM RATIO TOGGLE
+// Custom ratio toggle
 document.getElementById('useCustomRatio').addEventListener('change', e => {
-  const input = document.getElementById('customRatio');
-  input.classList.toggle('hidden', !e.target.checked);
+  document.getElementById('customRatio').classList.toggle('hidden', !e.target.checked);
 });
 
-// FILTER CALCULATION
+// Filter calculation
 function calculateFilter() {
   const coffee = parseFloat(document.getElementById('filterCoffee').value);
   const water = parseFloat(document.getElementById('filterWater').value);
@@ -122,9 +125,8 @@ function calculateFilter() {
   const history = document.getElementById('filterHistory');
 
   let ratio = 60;
-  if (useCustom && customRatio.value) {
-    ratio = parseFloat(customRatio.value);
-  } else {
+  if (useCustom && customRatio.value) ratio = parseFloat(customRatio.value);
+  else {
     if (flavour === "light") ratio = 55;
     if (flavour === "balanced") ratio = 60;
     if (flavour === "syrupy") ratio = 65;
@@ -156,7 +158,7 @@ function calculateFilter() {
   localStorage.setItem('lastBrew', JSON.stringify({ output, time: now }));
 }
 
-// ESPRESSO CALCULATION
+// Espresso calculation
 function calculateEspresso() {
   const dose = parseFloat(document.getElementById('espressoDose').value);
   const ratio = parseFloat(document.getElementById('espressoRatio').value);
@@ -172,7 +174,7 @@ function calculateEspresso() {
   }
 }
 
-// TIMER FUNCTIONS
+// Editable timer
 function startTimer() {
   const input = document.getElementById('timerInput');
   const display = document.getElementById('timerDisplay');
@@ -215,7 +217,7 @@ function formatTime(seconds) {
   return `${m}:${s}`;
 }
 
-// LOAD LAST BREW
+// Load last brew result
 window.addEventListener('DOMContentLoaded', () => {
   const last = JSON.parse(localStorage.getItem('lastBrew'));
   if (last) {
