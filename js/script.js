@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetButton = document.getElementById('resetButton');
   const darkModeToggle = document.getElementById('darkModeToggle');
   const languageToggle = document.getElementById('languageToggle');
-  const bell = document.getElementById('bellSound');
 
   let userName = "";
   let language = "EN";
@@ -281,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
     timerInterval = setInterval(() => {
       if (totalSeconds <= 0) {
         clearInterval(timerInterval);
-        if (bell) bell.play();
         return;
       }
       totalSeconds--;
