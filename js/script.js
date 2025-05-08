@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetButton = document.getElementById('resetButton');
   const darkModeToggle = document.getElementById('darkModeToggle');
   const languageToggle = document.getElementById('languageToggle');
+  const bell = document.getElementById('bellSound');
 
   let userName = "";
   let language = "EN";
@@ -19,38 +20,41 @@ document.addEventListener('DOMContentLoaded', () => {
   let totalSeconds = 0;
   let isPaused = true;
 
-  // START button
-  startButton.addEventListener('click', () => {
-    const name = nameInput.value.trim();
-    if (!name) return;
+  if (startButton) {
+    startButton.addEventListener('click', () => {
+      const name = nameInput?.value.trim();
+      if (!name) return;
 
-    userName = name;
-    const hour = new Date().getHours();
-    const timeGreeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+      userName = name;
+      const hour = new Date().getHours();
+      const timeGreeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
-    greeting.innerHTML = `
-      <span class="caps-title">${timeGreeting.toUpperCase()}</span>
-      <h1 class="script-title">${userName}</h1>
-    `;
+      if (greeting) {
+        greeting.innerHTML = `
+          <span class="caps-title">${timeGreeting.toUpperCase()}</span>
+          <h1 class="script-title">${userName}</h1>
+        `;
+      }
 
-    introImage.classList.add('fade-out');
-    introImage.addEventListener('transitionend', () => {
-      imageContainer.style.display = 'none';
-      iconSection.classList.remove('hidden');
-      iconSection.classList.add('visible');
-    }, { once: true });
+      if (introImage && imageContainer && iconSection) {
+        introImage.classList.add('fade-out');
+        introImage.addEventListener('transitionend', () => {
+          imageContainer.style.display = 'none';
+          iconSection.classList.remove('hidden');
+          iconSection.classList.add('visible');
+        }, { once: true });
+      }
 
-    nameBlock.classList.add('hide');
-    resetButton.classList.remove('hidden');
-  });
+      nameBlock?.classList.add('hide');
+      resetButton?.classList.remove('hidden');
+    });
+  }
 
-  // Toggle dark mode
-  darkModeToggle.addEventListener('click', () => {
+  darkModeToggle?.addEventListener('click', () => {
     document.body.classList.toggle('dark');
   });
 
-  // Toggle language
-  languageToggle.addEventListener('click', () => {
+  languageToggle?.addEventListener('click', () => {
     language = language === "EN" ? "DE" : "EN";
 
     const subtitle = language === "EN" ? "LET'S MAKE" : "LASS UNS MACHEN";
@@ -58,14 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const placeholder = language === "EN" ? "What's your name?" : "Wie heißt du?";
     const buttonText = language === "EN" ? "Start" : "Starten";
 
-    document.querySelector('.caps-title').textContent = subtitle;
-    document.querySelector('.script-title').textContent = title;
-    nameInput.placeholder = placeholder;
-    startButton.textContent = buttonText;
+    document.querySelector('.caps-title')?.textContent = subtitle;
+    document.querySelector('.script-title')?.textContent = title;
+    if (nameInput) nameInput.placeholder = placeholder;
+    if (startButton) startButton.textContent = buttonText;
   });
 
-  // Brew icon logic
-  document.getElementById('filterIcon').addEventListener('click', () => {
+  document.getElementById('filterIcon')?.addEventListener('click', () => {
     document.getElementById('espressoIcon').style.display = 'none';
     document.getElementById('filterIcon').style.margin = '0 auto';
     document.querySelector('.icon-container').style.justifyContent = 'center';
@@ -75,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     backButton.classList.remove('hidden');
   });
 
-  document.getElementById('espressoIcon').addEventListener('click', () => {
+  document.getElementById('espressoIcon')?.addEventListener('click', () => {
     document.getElementById('filterIcon').style.display = 'none';
     document.getElementById('espressoIcon').style.margin = '0 auto';
     document.querySelector('.icon-container').style.justifyContent = 'center';
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     backButton.classList.remove('hidden');
   });
 
-  backButton.addEventListener('click', () => {
+  backButton?.addEventListener('click', () => {
     filterSection.classList.remove('visible');
     espressoSection.classList.remove('visible');
     iconSection.classList.add('visible');
@@ -97,78 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.icon-container').style.justifyContent = 'center';
   });
 
-  resetButton.addEventListener('click', () => location.reload());
-  // Roast & Type Advice
-  function giveRoastAndTypeAdvice(roastId, typeId, targetId, isEspresso = false) {
-    const roast = document.getElementById(roastId).value;
-    const type = document.getElementById(typeId).value;
-    const output = document.getElementById(targetId);
-    let msg = "";
-
-    if (roast === "dark") {
-      msg += isEspresso
-        ? "Darker roasts take up more space and can be intense. Try 16g instead of 18g for balance."
-        : "Dark roasts are more soluble — a lower dose can help avoid bitterness.";
-      msg += " But if you love it strong, trust your taste!";
-    } else {
-      msg += "Light roasts often need a finer grind and higher dose to extract sweetness.";
-    }
-
-    msg += type === "single"
-      ? " Single origins are delicate — dial-in slowly."
-      : " Blends are built for consistency — use what’s comfortable.";
-
-    output.textContent = msg;
-  }
-
-  // Bind roast advice events
-  document.getElementById('roastLevel').addEventListener('change', () => {
-    giveRoastAndTypeAdvice('roastLevel', 'coffeeType', 'roastAdvice', false);
-  });
-  document.getElementById('coffeeType').addEventListener('change', () => {
-    giveRoastAndTypeAdvice('roastLevel', 'coffeeType', 'roastAdvice', false);
-  });
-  document.getElementById('espressoRoastLevel').addEventListener('change', () => {
-    giveRoastAndTypeAdvice('espressoRoastLevel', 'espressoCoffeeType', 'espressoRoastAdvice', true);
-  });
-  document.getElementById('espressoCoffeeType').addEventListener('change', () => {
-    giveRoastAndTypeAdvice('espressoRoastLevel', 'espressoCoffeeType', 'espressoRoastAdvice', true);
-  });
-
-  // Water Temp Feedback
-  function setupTempFeedback(inputId, outputId, low, high, tooLow, tooHigh, justRight) {
-    const input = document.getElementById(inputId);
-    const feedback = document.getElementById(outputId);
-
-    input.addEventListener('input', () => {
-      const val = parseFloat(input.value);
-      if (isNaN(val)) return feedback.textContent = "";
-      feedback.textContent =
-        val < low ? tooLow :
-        val > high ? tooHigh :
-        justRight;
-    });
-  }
-
-  setupTempFeedback("waterTemp", "tempFeedback", 88, 96,
-    "Too cool — may under-extract.",
-    "Very hot — could extract bitterness.",
-    "Perfect temp range.");
-
-  setupTempFeedback("espressoWaterTemp", "espressoTempFeedback", 88, 96,
-    "Too cool — espresso may be sour.",
-    "Very hot — could extract bitterness.",
-    "Looks good.");
-
-  // Shot quality slider
-  const qualitySlider = document.getElementById('shotQuality');
-  const qualityLabel = document.getElementById('qualityLabel');
-  if (qualitySlider && qualityLabel) {
-    qualitySlider.addEventListener('input', () => {
-      const val = parseInt(qualitySlider.value);
-      qualityLabel.textContent = val === 1 ? 'Sour' : val === 3 ? 'Bitter' : 'Balanced';
-    });
-  }
+  resetButton?.addEventListener('click', () => location.reload());
 
   // FILTER Calculator
   window.calculateFilter = function () {
@@ -252,9 +184,70 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       result.innerHTML = "Please enter a coffee dose.";
     }
-  };
+    };
 
-  // Load brew history
+  // Roast & Type Advice
+  function giveRoastAndTypeAdvice(roastId, typeId, targetId, isEspresso = false) {
+    const roast = document.getElementById(roastId).value;
+    const type = document.getElementById(typeId).value;
+    const output = document.getElementById(targetId);
+    let msg = "";
+
+    if (roast === "dark") {
+      msg += isEspresso
+        ? "Darker roasts take up more space and can be intense. Try 16g instead of 18g for balance."
+        : "Dark roasts are more soluble — a lower dose can help avoid bitterness.";
+      msg += " But if you love it strong, trust your taste!";
+    } else {
+      msg += "Light roasts often need a finer grind and higher dose to extract sweetness.";
+    }
+
+    msg += type === "single"
+      ? " Single origins are delicate — dial-in slowly."
+      : " Blends are built for consistency — use what’s comfortable.";
+
+    output.textContent = msg;
+  }
+
+  document.getElementById('roastLevel')?.addEventListener('change', () => {
+    giveRoastAndTypeAdvice('roastLevel', 'coffeeType', 'roastAdvice', false);
+  });
+  document.getElementById('coffeeType')?.addEventListener('change', () => {
+    giveRoastAndTypeAdvice('roastLevel', 'coffeeType', 'roastAdvice', false);
+  });
+  document.getElementById('espressoRoastLevel')?.addEventListener('change', () => {
+    giveRoastAndTypeAdvice('espressoRoastLevel', 'espressoCoffeeType', 'espressoRoastAdvice', true);
+  });
+  document.getElementById('espressoCoffeeType')?.addEventListener('change', () => {
+    giveRoastAndTypeAdvice('espressoRoastLevel', 'espressoCoffeeType', 'espressoRoastAdvice', true);
+  });
+
+  // Water Temp Feedback
+  function setupTempFeedback(inputId, outputId, low, high, tooLow, tooHigh, justRight) {
+    const input = document.getElementById(inputId);
+    const feedback = document.getElementById(outputId);
+
+    input?.addEventListener('input', () => {
+      const val = parseFloat(input.value);
+      if (isNaN(val)) return feedback.textContent = "";
+      feedback.textContent =
+        val < low ? tooLow :
+        val > high ? tooHigh :
+        justRight;
+    });
+  }
+
+  setupTempFeedback("waterTemp", "tempFeedback", 88, 96,
+    "Too cool — may under-extract.",
+    "Very hot — could extract bitterness.",
+    "Perfect temp range.");
+
+  setupTempFeedback("espressoWaterTemp", "espressoTempFeedback", 88, 96,
+    "Too cool — espresso may be sour.",
+    "Very hot — could extract bitterness.",
+    "Looks good.");
+
+  // Brew History
   const last = JSON.parse(localStorage.getItem('lastBrew'));
   if (last && document.getElementById('filterHistory')) {
     document.getElementById('filterHistory').innerHTML += `<div>🕓 Last Brew – ${last.time}: ${last.output}</div>`;
@@ -278,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.startTimer = function () {
     const input = document.getElementById('timerInput');
     const display = document.getElementById('timerDisplay');
-    const bell = document.getElementById('bellSound');
+    if (!input || !display) return;
     if (input.value && totalSeconds === 0) {
       totalSeconds = parseInt(input.value, 10);
       display.textContent = formatTime(totalSeconds);
@@ -288,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     timerInterval = setInterval(() => {
       if (totalSeconds <= 0) {
         clearInterval(timerInterval);
-        bell.play();
+        if (bell) bell.play();
         return;
       }
       totalSeconds--;
