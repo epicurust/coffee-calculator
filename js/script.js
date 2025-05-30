@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let totalSeconds = 0;
   let isPaused = true;
 
+  const translations = {
+    choose_brew: {
+      EN: "Select a brew method to get started:",
+      DE: "Wähle eine Brühmethode, um zu starten:"
+    }
+  };
+
   if (startButton) {
     startButton.addEventListener('click', () => {
       const name = nameInput?.value.trim();
@@ -44,13 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { once: true });
       }
 
-      nameBlock?.classList.add('hide');
+      nameBlock?.classList.add('hidden');
       resetButton?.classList.remove('hidden');
     });
   }
 
   darkModeToggle?.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
+    if (document.body.classList.contains('light')) {
+      document.body.classList.remove('light');
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
+    }
   });
 
   languageToggle?.addEventListener('click', () => {
@@ -65,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.script-title')?.textContent = title;
     if (nameInput) nameInput.placeholder = placeholder;
     if (startButton) startButton.textContent = buttonText;
+
+    const brewText = translations.choose_brew[language];
+    document.querySelector('[data-i18n="choose_brew"]')?.textContent = brewText;
   });
 
   document.getElementById('filterIcon')?.addEventListener('click', () => {
