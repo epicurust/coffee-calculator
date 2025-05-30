@@ -51,6 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   darkModeToggle?.addEventListener('click', () => {
     document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+  });
+
+  document.getElementById('useCustomRatio')?.addEventListener('change', (e) => {
+    const customRatio = document.getElementById('customRatio');
+    if (!customRatio) return;
+    customRatio.classList.toggle('hidden', !e.target.checked);
   });
 
   languageToggle?.addEventListener('click', () => {
